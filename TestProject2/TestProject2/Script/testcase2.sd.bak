@@ -1,0 +1,41 @@
+﻿procedure app;
+var p;
+ begin
+   p := TestedApps.TestEnvironment_TD32;
+   p.Run();
+   end;
+procedure maximaze;
+    var x;
+    begin
+    x:= Sys.Process('TestEnvironment(TD32)').VCLObject('FMain');
+    x.maximize; 
+ end;
+procedure treelistpanel;
+var z;
+  begin
+    z := Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').VCLObject('bbTreeList');
+    z.Click;
+  end;
+
+
+procedure id;
+var a;
+begin
+  a := Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').Window('MDIClient', '', 1).VCLObject('FTreeList').VCLObject('tlTest');
+  a.wChildView(1).Collapse(2);
+  a.Collapse(1);
+  a.wChildView[1].ClickCell(0, 'name');
+   end;
+
+ procedure closeProgram;
+begin
+  Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').VCLObject('bbTreeList').Close();
+  end;   
+procedure main;
+ begin
+   app;
+   maximaze;
+   treelistpanel;
+   id;
+   closeProgram;
+ end;

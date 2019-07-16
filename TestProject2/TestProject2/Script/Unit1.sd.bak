@@ -1,0 +1,178 @@
+﻿procedure app;
+var p;
+ begin
+   p := TestedApps.TestEnvironment_TD32;
+   p.Run();
+   end;
+   
+ procedure maximaze;
+    var x;
+    begin
+    x:= Sys.Process('TestEnvironment(TD32)').VCLObject('FMain');
+    x.maximize; 
+ end;
+ 
+procedure formpanel;
+   var z;
+   begin
+   z := Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').VCLObject('bbEdits');
+   z.Click;
+end;
+procedure memoTest;
+    var textToMemo, memoLabel;
+    begin
+         textToMemo := 'absolutly random text';
+         Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').Window('MDIClient', '', 1)
+                                             .VCLObject('FEdits').VCLObject('sbMain')
+                                             .VCLObject('pMainPanel').VCLObject('mTest')
+                                             .VCLObject('mTestEdit').Window('TcxCustomInnerMemo', '', 1).SetText(textToMemo);
+         Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').Window('MDIClient', '', 1)
+                                             .VCLObject('FEdits').VCLObject('sbMain')
+                                             .VCLObject('pButtonsPanel').Child(6).Click;
+  memoLabel := Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').Window('MDIClient', '', 1)
+                                             .VCLObject('FEdits').VCLObject('sbMain')
+                                             .VCLObject('pLabelsPanel').Child(6).GetEditValue;
+  
+       if (memoLabel = textToMemo) 
+       then
+          begin log.Message('everything is ok with memo'); end
+       else 
+          begin Log.Message('something went wrong with memo and message did not set'); end;
+end;
+
+procedure openEditPanel;
+   var edit, editlabel;
+   begin
+        edit := 'proizvolniy tekst';
+        Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').Window('MDIClient', '', 1)
+                                            .VCLObject('FEdits').VCLObject('sbMain').VCLObject('pMainPanel')
+                                            .VCLObject('edTest').VCLObject('edTestEdit') .SetText(edit);
+        Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').Window('MDIClient', '', 1)
+                                            .VCLObject('FEdits').VCLObject('sbMain')
+                                            .VCLObject('pButtonsPanel').Child(0).Click;
+         editlabel := Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').Window('MDIClient', '', 1)
+                                            .VCLObject('FEdits').VCLObject('sbMain')
+                                            .VCLObject('pLabelsPanel').Child(0).GetEditValue;
+      if (editlabel = edit) 
+      then
+        begin Log.Message('everything is ok with edit'); end
+      else 
+        begin Log.Message('something went wrong with edit and message did not set'); end
+end;
+ 
+ 
+ procedure CheckBox;
+    var checkboxlabel;
+    begin
+         Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').Window('MDIClient', '', 1)
+                                             .VCLObject('FEdits').VCLObject('sbMain')
+                                             .VCLObject('pMainPanel').VCLObject('cbTest')
+                                             .VCLObject('cbTestEdit').Click;
+ 
+         Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').Window('MDIClient', '', 1)
+                                             .VCLObject('FEdits')
+                                             .VCLObject('sbMain').VCLObject('pButtonsPanel').Child(13).Click;
+ 
+          checkboxlabel := Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').Window('MDIClient', '', 1).VCLObject('FEdits').VCLObject('sbMain').VCLObject('pLabelsPanel').Child(13).GetEditValue;
+      if (checkboxlabel = true) 
+      then
+        begin Log.Message('everything is ok with checkbox'); end
+      else 
+        begin Log.Message('something went wrong with checkbox and checkbox field didnt clicked'); end
+  end;
+ 
+ 
+procedure currency;
+    var currency1, currencylabel;
+    begin
+        currency1 := 'Znachenie';
+        Sys.Process('TestEnvironment(TD32)') .VCLObject('FMain').Window('MDIClient', '', 1)
+                                             .VCLObject('FEdits').VCLObject('sbMain').VCLObject('pMainPanel')
+                                             .VCLObject('ceTest').VCLObject('ceTestEdit').SetValue(456);
+ 
+        Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').Window('MDIClient', '', 1)
+                          .VCLObject('FEdits').VCLObject('sbMain').VCLObject('pButtonsPanel').Child(10).Click;
+                
+        currencylabel := Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').Window('MDIClient', '', 1)
+                                             .VCLObject('FEdits')
+                                             .VCLObject('sbMain').VCLObject('pLabelsPanel')
+                                 .Child(10).GetEditValue;
+    if (currencylabel = 456) then
+    begin Log.Message('everything is ok with currency'); end
+    else begin Log.Message('something went wrong with currency and message did not set'); end 
+  end; 
+
+
+procedure DateEdit;
+    var dateEditLabel;
+    begin
+        Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').Window('MDIClient', '', 1)
+                                            .VCLObject('FEdits').VCLObject('sbMain')
+                                            .VCLObject('pMainPanel').VCLObject('deTest')
+                                            .VCLObject('deTestEdit').SetEditValue('15.07.2019');
+                                      
+        Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').Window('MDIClient', '', 1)
+                                            .VCLObject('FEdits').VCLObject('sbMain')
+                                            .VCLObject('pButtonsPanel').Child(9).Click;
+                                      
+        dateEditLabel := Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').Window('MDIClient', '', 1)
+                                                             .VCLObject('FEdits').VCLObject('sbMain')
+                                                             .VCLObject('pLabelsPanel').Child(9).GetEditValue;
+        
+        if (dateEditLabel = '15.07.2019') 
+        then
+            begin Log.Message('everything is ok with dateEdit'); end
+        else 
+            begin Log.Message('something went wrong with dateEdit and value did not set'); end
+end;
+
+procedure progressEdit;
+    var progresslabel;
+    begin
+        Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').Window('MDIClient', '', 1)
+                                            .VCLObject('FEdits').VCLObject('sbMain')
+                                            .VCLObject('pMainPanel').VCLObject('peTest')
+                                            .VCLObject('peTestProgress').SetEditValue('15');
+        Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').Window('MDIClient', '', 1)
+                                            .VCLObject('FEdits').VCLObject('sbMain').VCLObject('pMainPanel')
+                                            .VCLObject('peTest').VCLObject('peTestUp').Click;
+        Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').Window('MDIClient', '', 1)
+                                            .VCLObject('FEdits').VCLObject('sbMain')
+                                            .VCLObject('pButtonsPanel').Child(3).Click;
+ progresslabel := Sys.Process('TestEnvironment(TD32)').VCLObject('FMain').Window('MDIClient', '', 1)
+                                            .VCLObject('FEdits').VCLObject('sbMain')
+                                            .VCLObject('pLabelsPanel').Child(3).GetEditValue;
+  if (progresslabel = '16')
+  then
+      begin Log.Message('everything is ok with progresslabel'); end
+      else
+          begin Log.Message('something went wrong with progresslabel and value did not set'); end
+end;
+
+procedure t(s : string);
+var ch;
+begin
+  Sys.Process('TestEnvironment(TD32)').VCLObject('FMain')
+  .Window('MDIClient', '', 1).VCLObject('FEdits').VCLObject('sbMain')
+  .VCLObject('pMainPanel').VCLObject('lueTest').VCLObject('lueTestEdit').Keys(s);
+  
+  Sys.WaitProcess('TestEnvironment(TD32)', 2000);
+  
+  Sys.Process('TestEnvironment(TD32)').VCLObject('FMain')
+  .Window('MDIClient', '', 1).VCLObject('FEdits').VCLObject('sbMain')
+  .VCLObject('pMainPanel').VCLObject('lueTest').VCLObject('lueTestEdit').ResetEditValue;
+end;
+
+procedure main;
+begin
+  {app;
+  maximaze;
+  formpanel;
+  memoTest;
+  openEditPanel;
+  CheckBox;
+  currency;
+  DateEdit;
+  progressEdit;}
+  t('Name1'); t('Name3');
+end;
